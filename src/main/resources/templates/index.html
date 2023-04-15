@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>Vote System</title>
+
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		  crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+
+			</button>
+			<a class="navbar-brand" href="#" th:href="@{/}">Vote System</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+
+		</div>
+	</div>
+</nav>
+
+<br>
+<br>
+
+<div class="container">
+	<h1>投票選擇</h1>
+
+
+	<form id="votingForm">
+
+		<select id="select1" class="form-control">
+
+		</select>
+		<select id="select2" class="form-control">
+
+		</select>
+
+		<button type="submit" class="btn btn-info col-2"> 確定投票</button>
+	</form>
+
+
+</div>
+
+<div class="container my-2">
+	<h1>投票紀錄</h1>
+
+	<table border="1" class = "table table-striped table-responsive-md" id="voteRecords">
+		<thead>
+		<tr>
+			<th>
+				<a>
+					投票者</a>
+			</th>
+			<th>
+				<a>
+					投票項目編號</a>
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		</tr>
+		</tbody>
+	</table>
+</div>
+<br>
+<br>
+<hr>
+
+<div class="container my-2">
+	<h1>投票項目</h1>
+
+	<table border="1" class = "table table-striped table-responsive-md" id="items">
+		<thead>
+		<tr>
+			<th>
+				<a>
+					投票項目編號</a>
+			</th>
+			<th>
+				<a>
+					投票項目名稱</a>
+			</th>
+			<th> Actions </th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		</tr>
+		</tbody>
+	</table>
+	<a th:href = "@{/AddItem}" class="btn btn-primary btn-sm mb-3">新增項目</a>
+</div>
+
+<br>
+<br>
+<hr>
+
+<div class="container my-2">
+	<h1>投票者</h1>
+
+	<table border="1" class = "table table-striped table-responsive-md" id="voters">
+		<thead>
+		<tr>
+			<th>
+				<a>
+					投票者編號</a>
+			</th>
+			<th>
+				<a>
+					投票者名稱</a>
+			</th>
+			<th>
+				<a>
+					信箱</a>
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<script>
+$(document).ready(
+        function() {
+
+		$.ajax({
+                url: 'http://localhost:8080/voting/getVoteRecord',
+                headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type':'application/json'
+				},
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                success: function(results) {
+                console.log(results);
+                $.each(results, function(k, m) {
+                    var table = document.getElementById("voteRecords");
+                    var row = table.insertRow(-1);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = m.voterName;
+                    cell2.innerHTML = m.itemId;
+
+                    console.log('key :'+k+', model:'+m );
+                });
+                }
+            });
+
+
+        $.ajax({
+                url: 'http://localhost:8080/item/getItem',
+                headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type':'application/json'
+				},
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                success: function(results) {
+                console.log(results);
+                $.each(results, function(k, m) {
+                    var table = document.getElementById("items");
+                    var row = table.insertRow(-1);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    cell1.innerHTML = m.id;
+                    cell2.innerHTML = m.name;
+                    cell3.innerHTML = '<input id="Button" type="button" class="btn btn-primary" value="Update" onclick="updateItem('+m.id+')" />'+'<input id="Button" type="button" class="btn btn-danger" value="Delete" onclick="deleteItem('+m.id+')" />';
+
+                    $('#select1').append(`<option value = m.id>${m.name}</option>`);
+                    console.log('key :'+k+', model:'+m );
+                });
+                }
+            });
+
+        $.ajax({
+                url: 'http://localhost:8080/voter/getVoter',
+                headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type':'application/json'
+				},
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                success: function(results) {
+                console.log(results);
+                $.each(results, function(k, m) {
+                    var table = document.getElementById("voters");
+                    var row = table.insertRow(-1);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    cell1.innerHTML = m.id;
+                    cell2.innerHTML = m.name;
+                    cell3.innerHTML = m.email;
+
+                    $('#select2').append(`<option value = m.id>${m.name}</option>`);
+                    console.log('key :'+k+', model:'+m );
+                });
+                }
+            });
+        }
+);
+
+
+function deleteItem(id) {
+  var itemId = String(id);
+  console.log(itemId);
+  $.ajax({
+                url: 'http://localhost:8080/item/deleteItem/'+itemId,
+                headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type':'application/json'
+				},
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+
+            });
+  location.replace("/");
+}
+
+function updateItem(id) {
+  var itemId = String(id);
+  console.log(itemId);
+
+  location.replace("/showFormForUpdate/"+itemId);
+}
+
+
+</script>
+</body>
+</html>
