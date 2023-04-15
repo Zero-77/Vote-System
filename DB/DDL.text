@@ -1,0 +1,28 @@
+投票者voter Table
+
+CREATE TABLE voter (
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  email VARCHAR(100)
+);
+
+投票項目item Table
+
+CREATE TABLE item (
+  id INT PRIMARY KEY,
+  name VARCHAR(100)
+);
+
+投票紀錄item_record Table
+
+CREATE TABLE vote_record (
+  id INT PRIMARY KEY,
+  voter_id INT,
+  item_id INT,
+  voter_name VARCHAR(50),
+  item_name VARCHAR(100),
+  CONSTRAINT fk_vote_record_voter_id FOREIGN KEY (id)
+    REFERENCES voter(id),
+  CONSTRAINT fk_vote_record_item_id FOREIGN KEY (id)
+    REFERENCES item(id)
+);

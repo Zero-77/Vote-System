@@ -1,0 +1,40 @@
+新增投票者Voter
+INSERT INTO voter (id, name, email)
+VALUES (1, 'Nick', 'Nick@example.com');
+
+修改投票者Voter名稱
+UPDATE voter
+SET name = 'Nick-CH'
+WHERE id = 1;
+
+刪除投票者Voter
+DELETE FROM voter
+WHERE id = 1;
+
+
+新增投票項目item
+INSERT INTO item (id, name)
+VALUES (1, '鍵盤');
+
+修改投票項目item 名稱
+UPDATE item
+SET name = '滑鼠'
+WHERE id = 1;
+
+刪除投票項目item
+DELETE FROM item
+WHERE id = 1;
+
+新增投票紀錄vote_record
+INSERT INTO vote_record (voter_id, item_id, voter_name, item_name)
+VALUES (1, 1, 'Nick', '鍵盤');
+
+修改投票紀錄vote_record 投票選項
+UPDATE vote_record
+SET VoteOption = '滑鼠'
+WHERE PersonID = 1 AND ItemID = 1;
+
+刪除投票紀錄
+DELETE FROM vote_record
+WHERE voter_id = 1 AND item_id = 1;
+
