@@ -136,7 +136,7 @@
 <script>
 $(document).ready(
         function() {
-
+		//get all vote_record
 		$.ajax({
                 url: 'http://localhost:8080/voting/getVoteRecord',
                 headers: {
@@ -161,7 +161,7 @@ $(document).ready(
                 }
             });
 
-
+		//get all item
         $.ajax({
                 url: 'http://localhost:8080/item/getItem',
                 headers: {
@@ -189,6 +189,7 @@ $(document).ready(
                 }
             });
 
+		//get all voter
         $.ajax({
                 url: 'http://localhost:8080/voter/getVoter',
                 headers: {
@@ -218,7 +219,7 @@ $(document).ready(
         }
 );
 
-
+//delete specific item
 function deleteItem(id) {
   var itemId = String(id);
   console.log(itemId);
@@ -236,6 +237,7 @@ function deleteItem(id) {
   location.replace("/");
 }
 
+//redirect specific item form page
 function updateItem(id) {
   var itemId = String(id);
   console.log(itemId);

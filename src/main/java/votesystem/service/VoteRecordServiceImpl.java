@@ -6,6 +6,8 @@ import votesystem.model.VoteRecord;
 import votesystem.repository.VoteRecordRepository;
 
 import java.util.List;
+
+//實踐投票紀錄vote_record
 @Service
 public class VoteRecordServiceImpl implements VoteRecordService{
     @Autowired

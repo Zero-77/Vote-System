@@ -14,7 +14,7 @@ public class VoteRecordController {
     private VoteRecordService voteRecordService;
 
 
-    //取得Item
+    //Get 投票紀錄 vote_record
     @CrossOrigin(origins = "*")
     @GetMapping("voting/getVoteRecord")
     public ResponseEntity<List<VoteRecord>> getVoteRecordData() {
@@ -37,20 +37,5 @@ public class VoteRecordController {
         voteRecordService.saveRecord(voteRecord);
         return "redirect:/";
     }
-//    @CrossOrigin(origins = "*")
-//    @PostMapping("voting/insertOrderProduct")
-//    public ResponseEntity<ResponseFormat<VoteRecord>> insertOrderProductData(@Valid @RequestBody VoteRecord data){
-//
-//        ResponseFormat <VoteRecord> results = new ResponseFormat<VoteRecord>();
-//        System.out.println("VoteRecord....Data:"+data);
-//        this.doInsertOrderIntoDB(data);
-//
-//        results.setReturn_message("success");
-//        results.setReturn_data(data);
-//
-//        return ResponseEntity.ok().body(results);
-//
-//    }
-
 
 }

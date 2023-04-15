@@ -12,6 +12,7 @@ import votesystem.repository.ItemRepository;
 import java.util.List;
 import java.util.Optional;
 
+//實踐投票項目item
 @Service
 public class ItemServiceImpl implements ItemService {
 

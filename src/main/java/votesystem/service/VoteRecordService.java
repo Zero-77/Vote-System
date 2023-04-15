@@ -4,6 +4,7 @@ import votesystem.model.VoteRecord;
 
 import java.util.List;
 
+//投票紀錄vote_record介面
 public interface VoteRecordService {
 
 

@@ -23,6 +23,7 @@ public class ItemController {
 		return findPaginated(1, "name", "asc", model);
 	}
 
+	// add_item.html Add New Item
 	@GetMapping("/AddItem")
 	public String addItem(Model model) {
 		// create model attribute to bind form data
@@ -31,6 +32,7 @@ public class ItemController {
 		return "add_item";
 	}
 
+	//update_item.html Get Item by Id for Update
 	@GetMapping("/showFormForUpdate/{id}")
 	public String showFormForUpdate(@PathVariable ( value = "id") int id, Model model) {
 
@@ -41,6 +43,8 @@ public class ItemController {
 		return "update_item";
 	}
 
+
+	//Create and Update Item
 	@CrossOrigin(origins = "*")
 	@PostMapping("/saveItem")
 	public String saveItem(@ModelAttribute("item") Item item) {
@@ -49,6 +53,7 @@ public class ItemController {
 		return "redirect:/";
 	}
 
+	//show Items Page
 	@GetMapping("/page/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
 								@RequestParam("sortField") String sortField,
@@ -71,6 +76,7 @@ public class ItemController {
 		return "index";
 	}
 
+	//Delete Item by Id
 	@CrossOrigin(origins = "*")
 	@GetMapping("item/deleteItem/{id}")
 	public String deleteItem(@PathVariable (value = "id") int id) {
@@ -82,7 +88,7 @@ public class ItemController {
 
 
 
-	//取得Item
+	//Get Item by Id
 	@CrossOrigin(origins = "*")
 	@GetMapping("item/getItem")
 	public ResponseEntity<List<Item>> getItemData() {
@@ -98,14 +104,6 @@ public class ItemController {
 		return ResponseEntity.ok().body(result);
 	}
 
-	@CrossOrigin(origins = "*")
-	@GetMapping("item/showFormForUpdate_id/{id}")
-	public ResponseEntity<Item> showFormForUpdate_id(@PathVariable ( value = "id") int id) {
 
-		// get Item from the service
-		Item item = itemService.getItemById(id);
-
-		return ResponseEntity.ok().body(item);
-	}
 
 }

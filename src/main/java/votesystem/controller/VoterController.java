@@ -17,7 +17,7 @@ public class VoterController {
 	private VoterService voterService;
 
 
-	//取得Item
+	//Get 投票者 voter
 	@CrossOrigin(origins = "*")
 	@GetMapping("voter/getVoter")
 	public ResponseEntity<List<Voter>> getVoterData() {
